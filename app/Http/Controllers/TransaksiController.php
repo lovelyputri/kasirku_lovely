@@ -78,7 +78,7 @@ class TransaksiController extends Controller
             'produk_id' => 'required|array|min:1',
             'produk_id.*' => 'required|integer|exists:produk,id',
             'jumlah' => 'required|array|min:1',
-            'jumlah.*' => 'required|integer|min:1',
+            'jumlah.*' => 'required|integer',
         ]);
 
         $idsProduk = $request->produk_id;

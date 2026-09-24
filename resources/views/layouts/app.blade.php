@@ -220,19 +220,11 @@
 
             {{-- Logo / nama aplikasi --}}
             <a class="navbar-brand" href="{{ route('home') }}">
-                🧴 Kasirku
+                🧾 Kasirku
             </a>
 
             {{-- Tombol menu HP --}}
-            <button
-                class="navbar-toggler ms-auto"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navMenu"
-                aria-controls="navMenu"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -241,28 +233,19 @@
                 <ul class="navbar-nav">
 
                     <li class="nav-item">
-                        <a
-                            class="nav-link {{ request()->routeIs('home', 'produk.*') ? 'active' : '' }}"
-                            href="{{ route('produk.index') }}"
-                        >
+                        <a class="nav-link {{ request()->routeIs('home', 'produk.*') ? 'active' : '' }}" href="{{ route('produk.index') }}">
                             Daftar Produk
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a
-                            class="nav-link {{ request()->routeIs('transaksi.create') ? 'active' : '' }}"
-                            href="{{ route('transaksi.create') }}"
-                        >
+                        <a class="nav-link {{ request()->routeIs('transaksi.create') ? 'active' : '' }}" href="{{ route('transaksi.create') }}">
                             Transaksi Baru
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a
-                            class="nav-link {{ request()->routeIs('transaksi.index', 'transaksi.show') ? 'active' : '' }}"
-                            href="{{ route('transaksi.index') }}"
-                        >
+                        <a class="nav-link {{ request()->routeIs('transaksi.index', 'transaksi.show') ? 'active' : '' }}" href="{{ route('transaksi.index') }}">
                             Riwayat Transaksi
                         </a>
                     </li>

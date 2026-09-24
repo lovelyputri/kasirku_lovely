@@ -274,25 +274,6 @@
         }
     </style>
 
-
-
-    {{-- ===== NOTIF ERROR JUMLAH ===== --}}
-
-    @if ($errors->has('jumlah.*'))
-
-        <div class="alert alert-danger d-flex justify-content-between align-items-center">
-            <span>
-                Jumlah beli harus lebih dari 0.
-            </span>
-
-            <button type="button" class="btn-alert-close" onclick="this.parentElement.remove()" aria-label="Tutup">
-                &times;
-            </button>
-        </div>
-
-    @endif
-
-
     <div class="row">
 
         {{-- ===== FORM TRANSAKSI ===== --}}

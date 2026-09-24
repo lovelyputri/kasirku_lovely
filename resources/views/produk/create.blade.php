@@ -123,14 +123,7 @@
                     <div class="mb-3">
                         <label class="form-label">Nama Produk</label>
 
-                        <input
-                            type="text"
-                            name="nama_produk"
-                            class="form-control @error('nama_produk') is-invalid @enderror"
-                            value="{{ old('nama_produk') }}"
-                            placeholder="Contoh: Indomie Goreng"
-                            required
-                        >
+                        <input type="text" name="nama_produk" class="form-control @error('nama_produk') is-invalid @enderror" value="{{ old('nama_produk') }}" placeholder="Contoh: Mascara Waterprof" required>
 
                         @error('nama_produk')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -141,15 +134,7 @@
                     <div class="mb-3">
                         <label class="form-label">Harga (Rp)</label>
 
-                        <input
-                            type="number"
-                            name="harga"
-                            min="0"
-                            class="form-control @error('harga') is-invalid @enderror"
-                            value="{{ old('harga') }}"
-                            placeholder="Contoh: 3500"
-                            required
-                        >
+                        <input type="number" name="harga" min="0" class="form-control @error('harga') is-invalid @enderror" value="{{ old('harga') }}" placeholder="Contoh: 3500" required>
 
                         @error('harga')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -160,15 +145,7 @@
                     <div class="mb-4">
                         <label class="form-label">Stok</label>
 
-                        <input
-                            type="number"
-                            name="stok"
-                            min="0"
-                            class="form-control @error('stok') is-invalid @enderror"
-                            value="{{ old('stok') }}"
-                            placeholder="Contoh: 100"
-                            required
-                        >
+                        <input type="number" name="stok" min="0" class="form-control @error('stok') is-invalid @enderror" value="{{ old('stok') }}" placeholder="Contoh: 100" required>
 
                         @error('stok')
                             <div class="invalid-feedback">{{ $message }}</div>
