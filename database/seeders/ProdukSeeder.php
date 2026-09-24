@@ -13,20 +13,22 @@ class ProdukSeeder extends Seeder
 {
     public function run(): void
     {
-        // Data contoh toko kelontong: nama, harga, stok
+        // Data contoh toko make up: nama, harga, stok
         $daftarProduk = [
-            ['nama_produk' => 'Indomie Goreng',    'harga' => 3500,  'stok' => 120],
-            ['nama_produk' => 'Aqua 600ml',        'harga' => 4000,  'stok' => 80],
-            ['nama_produk' => 'Teh Pucuk 350ml',   'harga' => 5000,  'stok' => 60],
-            ['nama_produk' => 'Beras 5kg',         'harga' => 65000, 'stok' => 25],
-            ['nama_produk' => 'Minyak Goreng 1L',  'harga' => 18000, 'stok' => 40],
-            ['nama_produk' => 'Gula Pasir 1kg',    'harga' => 15500, 'stok' => 35],
-            ['nama_produk' => 'Kopi Kapal Api 165g', 'harga' => 9500, 'stok' => 50],
-            ['nama_produk' => 'Sabun Lifebuoy',    'harga' => 3800,  'stok' => 0],   // contoh stok habis
+            ['nama_produk' => 'Lipstik Matte Nude Rose',      'harga' => 45000, 'stok' => 40],
+            ['nama_produk' => 'Lip Tint Cherry 5ml',          'harga' => 35000, 'stok' => 50],
+            ['nama_produk' => 'Bedak Padat Compact 12g',      'harga' => 55000, 'stok' => 35],
+            ['nama_produk' => 'Cushion Foundation 15g',       'harga' => 89000, 'stok' => 25],
+            ['nama_produk' => 'Maskara Waterproof 8ml',       'harga' => 48000, 'stok' => 30],
+            ['nama_produk' => 'Eyeliner Pensil Hitam',        'harga' => 25000, 'stok' => 60],
+            ['nama_produk' => 'Eyeshadow Palette 9 Warna',    'harga' => 75000, 'stok' => 20],
+            ['nama_produk' => 'Blush On Pink Peach',          'harga' => 42000, 'stok' => 0],
+            ['nama_produk' => 'Concealer Cair 6ml',           'harga' => 39000, 'stok' => 28],
+            ['nama_produk' => 'Setting Spray 60ml',           'harga' => 65000, 'stok' => 15],
+            ['nama_produk' => 'Pensil Alis Cokelat',          'harga' => 22000, 'stok' => 0],   // contoh stok habis
         ];
 
         foreach ($daftarProduk as $produk) {
-            // firstOrCreate: aman dipanggil berulang tanpa membuat data duplikat
             Produk::firstOrCreate(['nama_produk' => $produk['nama_produk']], $produk);
         }
     }

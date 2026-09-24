@@ -5,81 +5,163 @@
 
 @section('content')
 
-    {{-- ========================= CSS HALAMAN PRODUK ========================= --}}
+    {{-- ===== CSS HALAMAN PRODUK ===== --}}
     <style>
-        /* =========================
-           TOMBOL BUAT TRANSAKSI
-           Hijau pastel
-        ========================= */
+        /* ===== TOMBOL BUAT TRANSAKSI (pink utama) ===== */
         .btn-transaksi {
-            background-color: #DCECCF;
-            border-color: #DCECCF;
-            color: #60745A;
+            background-color: #D98FA7;
+            border-color: #D98FA7;
+            color: #FFFFFF;
         }
+
         .btn-transaksi:hover {
-            background-color: #C9DFBD;
-            border-color: #C9DFBD;
-            color: #53664E;
+            background-color: #C97892;
+            border-color: #C97892;
+            color: #FFFFFF;
         }
 
-        /* =========================
-           TOMBOL TAMBAH PRODUK
-           Pink pastel
-        ========================= */
+        /* ===== TOMBOL TAMBAH PRODUK (pink lebih lembut) ===== */
         .btn-tambah {
-            background-color: #E8B6C4;
-            border-color: #E8B6C4;
-            color: white;
+            background-color: #E5A9BC;
+            border-color: #E5A9BC;
+            color: #FFFFFF;
         }
+
         .btn-tambah:hover {
-            background-color: #D99AAA;
-            border-color: #D99AAA;
-            color: white;
+            background-color: #D48EA5;
+            border-color: #D48EA5;
+            color: #FFFFFF;
         }
 
-        /* =========================
-           TOMBOL EDIT
-           Cream / peach pastel
-        ========================= */
+        /* ===== TOMBOL EDIT (cream / beige) ===== */
         .btn-edit {
-            background-color: #F3E2C7;
-            border-color: #F3E2C7;
-            color: #806B50;
+            background-color: #EFE3D8;
+            border-color: #EFE3D8;
+            color: #75645A;
         }
+
         .btn-edit:hover {
-            background-color: #E8D2B0;
-            border-color: #E8D2B0;
-            color: #806B50;
+            background-color: #E3D3C5;
+            border-color: #E3D3C5;
+            color: #67574E;
         }
 
-        /* =========================
-           TOMBOL HAPUS
-           Pink muda
-        ========================= */
+        /* ===== TOMBOL HAPUS (pink muda) ===== */
         .btn-hapus {
-            background-color: #F4D5DC;
-            border-color: #F4D5DC;
-            color: #96616D;
+            background-color: #F3D4DE;
+            border-color: #F3D4DE;
+            color: #9A6072;
         }
+
         .btn-hapus:hover {
-            background-color: #EBC1CB;
-            border-color: #EBC1CB;
-            color: #96616D;
+            background-color: #E9BFCC;
+            border-color: #E9BFCC;
+            color: #895467;
         }
 
-        /* ========================= JUDUL ========================= */
+        /* ===== JUDUL ===== */
         h4 {
-            color: #647565;
+            color: #B96882;
+            font-weight: 600;
         }
 
-        /* ========================= HARGA ========================= */
+        /* ===== DESKRIPSI KECIL ===== */
+        .text-muted {
+            color: #8A8082 !important;
+        }
+
+        /* ===== CARD TABEL ===== */
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #EEDCE2;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(190, 110, 135, 0.06);
+        }
+
+        /* ===== HEADER TABEL ===== */
+        .table th {
+            background-color: #F7E8EC;
+            color: #6B6064;
+            font-weight: 600;
+            border-bottom: 1px solid #EEDFE3;
+        }
+
+        /* ===== ISI TABEL ===== */
+        .table td {
+            vertical-align: middle;
+            color: #625B60;
+            border-color: #F1E8E5;
+        }
+
+        /* ===== BARIS TABEL SAAT HOVER ===== */
+        .table-hover tbody tr:hover {
+            background-color: #FFF8F5;
+        }
+
+        /* ===== STOK TERSEDIA ===== */
+        .badge-stok-tersedia {
+            background-color: #f8dce7;
+            color: #87576A;
+            font-weight: 500;
+        }
+
+        /* ===== STOK HABIS ===== */
+        .badge-stok-habis {
+            background-color: #e7b8c4;
+            color: #955E70;
+            font-weight: 500;
+        }
+
+        /* ===== HARGA ===== */
         .harga {
-            color: #D88FA3;
-            font-weight: bold;
+            color: #C87590;
+            font-weight: 600;
+        }
+
+        /* ===== PAGINATION ===== */
+        .pagination {
+            margin-bottom: 0;
+        }
+
+        .page-link {
+            color: #C87590;
+            background-color: #FFFFFF;
+            border-color: #EEDCE2;
+        }
+
+        .page-link:hover {
+            color: #FFFFFF;
+            background-color: #D98FA7;
+            border-color: #D98FA7;
+        }
+
+        .page-item.active .page-link {
+            background-color: #D98FA7;
+            border-color: #D98FA7;
+            color: #FFFFFF;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .d-flex.justify-content-between {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 15px;
+            }
+
+            .d-flex.justify-content-between > .d-flex {
+                width: 100%;
+            }
+
+            .btn-transaksi,
+            .btn-tambah {
+                flex: 1;
+            }
         }
     </style>
 
-    {{-- ========================= JUDUL DAN TOMBOL ========================= --}}
+
+    {{-- ===== JUDUL DAN TOMBOL ===== --}}
     <div class="d-flex justify-content-between align-items-center mb-3">
 
         <div>
@@ -89,22 +171,19 @@
 
         {{-- Tombol kanan --}}
         <div class="d-flex gap-2">
-
-            {{-- Tombol Buat Transaksi --}}
             <a href="{{ route('transaksi.create') }}" class="btn btn-transaksi">
                 Buat Transaksi
             </a>
 
-            {{-- Tombol Tambah Produk --}}
             <a href="{{ route('produk.create') }}" class="btn btn-tambah">
                 + Tambah Produk
             </a>
-
         </div>
 
     </div>
 
-    {{-- ========================= TABEL PRODUK ========================= --}}
+
+    {{-- ===== TABEL PRODUK ===== --}}
     <div class="card p-3">
 
         <div class="table-responsive">
@@ -113,7 +192,7 @@
                 {{-- Kepala tabel --}}
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>No</th>
                         <th>Nama Produk</th>
                         <th class="text-end">Harga (Rp)</th>
                         <th class="text-center">Stok</th>
@@ -126,10 +205,10 @@
                     @forelse ($produks as $produk)
                         <tr>
 
-                            {{-- ID Produk --}}
+                            {{-- ID produk --}}
                             <td>{{ $produk->id }}</td>
 
-                            {{-- Nama Produk --}}
+                            {{-- Nama produk --}}
                             <td>{{ $produk->nama_produk }}</td>
 
                             {{-- Harga --}}
@@ -139,20 +218,20 @@
 
                             {{-- Stok --}}
                             <td class="text-center">
-                                <span class="badge {{ $produk->stok > 0 ? 'bg-success' : 'bg-danger' }}">
+                                <span class="badge {{ $produk->stok > 0 ? 'badge-stok-tersedia' : 'badge-stok-habis' }}">
                                     {{ $produk->stok }}
                                 </span>
                             </td>
 
-                            {{-- ========================= AKSI ========================= --}}
+                            {{-- Aksi --}}
                             <td class="text-center">
 
-                                {{-- Tombol Edit --}}
+                                {{-- Tombol edit --}}
                                 <a href="{{ route('produk.edit', $produk) }}" class="btn btn-sm btn-edit">
                                     Edit
                                 </a>
 
-                                {{-- Tombol Hapus --}}
+                                {{-- Tombol hapus --}}
                                 <form
                                     action="{{ route('produk.destroy', $produk) }}"
                                     method="POST"
@@ -183,7 +262,7 @@
             </table>
         </div>
 
-        {{-- ========================= PAGINATION ========================= --}}
+        {{-- Pagination --}}
         <div class="mt-3">
             {{ $produks->links('pagination::bootstrap-5') }}
         </div>

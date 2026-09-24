@@ -61,7 +61,7 @@ class TransaksiController extends Controller
         }
 
         $produk->stok = $sisaStok;
-        $produk->save(); 
+        $produk->save();
     }
 
     public function create(): View
@@ -75,10 +75,10 @@ class TransaksiController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'produk_id' => 'required|array|min:1',         
+            'produk_id' => 'required|array|min:1',
             'produk_id.*' => 'required|integer|exists:produk,id',
             'jumlah' => 'required|array|min:1',
-            'jumlah.*' => 'required|integer|min:1',       
+            'jumlah.*' => 'required|integer|min:1',
         ]);
 
         $idsProduk = $request->produk_id;

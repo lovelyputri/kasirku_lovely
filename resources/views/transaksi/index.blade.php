@@ -1,124 +1,158 @@
 {{-- Fitur 3: Halaman/tabel riwayat transaksi + rangkuman total penjualan --}}
 @extends('layouts.app')
-
 @section('title', 'Riwayat Transaksi')
-
 @section('content')
 
-    {{-- ========================= CSS HALAMAN RIWAYAT ========================= --}}
     <style>
-        /* ========================= JUDUL ========================= */
+        .btn-transaksi {
+            background-color: #D98FA7;
+            border-color: #D98FA7;
+            color: #FFFFFF;
+        }
+
+        .btn-transaksi:hover {
+            background-color: #C97892;
+            border-color: #C97892;
+            color: #FFFFFF;
+        }
+
+        /* ===== JUDUL ===== */
         h4 {
-            color: #647565;
+            color: #B96882;
             font-weight: 600;
         }
 
-        /* =========================
-           TOMBOL TRANSAKSI BARU
-           Hijau pastel
-        ========================= */
-        .btn-transaksi {
-            background-color: #DCECCF;
-            border-color: #DCECCF;
-            color: #60745A;
-            border-radius: 9px;
-            padding: 9px 16px;
-        }
-        .btn-transaksi:hover {
-            background-color: #C9DFBD;
-            border-color: #C9DFBD;
-            color: #53664E;
+        /* ===== DESKRIPSI KECIL ===== */
+        .text-muted {
+            color: #8A8082 !important;
         }
 
-        /* ========================= CARD RANGKUMAN ========================= */
+        /* ===== CARD RANGKUMAN ===== */
         .summary-card {
             border-radius: 15px;
-            border: 2px solid transparent;
+            border: 1px solid #EEDCE2;
+            box-shadow: 0 4px 12px rgba(190, 110, 135, 0.06);
             transition: 0.2s ease;
         }
+
         .summary-card:hover {
             transform: translateY(-2px);
         }
 
-        /* =========================
-           TOTAL PENJUALAN
-           Pink pastel
-        ========================= */
+        /* Total penjualan (pink) */
         .summary-pink {
             background-color: #FBEAF0;
             border-color: #F3D5DF;
         }
 
-        /* =========================
-           JUMLAH TRANSAKSI
-           Hijau pastel
-        ========================= */
+        /* Jumlah transaksi (nuansa pink) */
         .summary-green {
-            background-color: #EDF5E8;
-            border-color: #DCECCF;
+            background-color: #F8E7ED;
+            border-color: #EBCBD6;
         }
 
-        /* =========================
-           TOTAL UNIT
-           Cream pastel
-        ========================= */
+        /* Total unit (cream) */
         .summary-cream {
-            background-color: #FFF5E4;
-            border-color: #F3E2C7;
+            background-color: #FFF9F3;
+            border-color: #EEDFD6;
         }
 
-        /* ========================= HARGA ========================= */
+        /* Teks summary */
+        .summary-card small {
+            color: #8A8082 !important;
+        }
+
+        .summary-card strong {
+            color: #625B60;
+        }
+
+        /* ===== HARGA ===== */
         .harga {
-            color: #D88FA3;
-            font-weight: bold;
+            color: #C87590;
+            font-weight: 600;
         }
 
-        /* =========================
-           TOMBOL DETAIL
-           Pink pastel
-        ========================= */
+        /* ===== TOMBOL DETAIL ===== */
         .btn-detail {
-            background-color: #E8B6C4;
-            border-color: #E8B6C4;
-            color: #FFFFFF;
-            border-radius: 8px;
-            padding: 6px 14px;
-        }
-        .btn-detail:hover {
-            background-color: #D99AAA;
-            border-color: #D99AAA;
+            background-color: #E5A9BC;
+            border-color: #E5A9BC;
             color: #FFFFFF;
         }
 
-        /* ========================= TABEL ========================= */
+        .btn-detail:hover {
+            background-color: #D48EA5;
+            border-color: #D48EA5;
+            color: #FFFFFF;
+        }
+
+        /* ===== CARD TABEL ===== */
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #EEDCE2;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(190, 110, 135, 0.06);
+        }
+
+        /* ===== HEADER TABEL ===== */
         .table th {
             background-color: #F7E8EC;
-            color: #687267;
-            border-bottom: 2px solid #E8DDE0;
-        }
-        .table td {
-            color: #666666;
+            color: #6B6064;
+            font-weight: 600;
+            border-bottom: 1px solid #EEDFE3;
         }
 
-        /* ========================= PAGINATION ========================= */
-        .page-link {
-            color: #D88FA3;
-            background-color: #FFFFFF;
-            border-color: #F0DCE2;
+        /* ===== ISI TABEL ===== */
+        .table td {
+            vertical-align: middle;
+            color: #625B60;
+            border-color: #F1E8E5;
         }
+
+        /* ===== BARIS TABEL SAAT HOVER ===== */
+        .table-hover tbody tr:hover {
+            background-color: #FFF8F5;
+        }
+
+        /* ===== PAGINATION ===== */
+        .pagination {
+            margin-bottom: 0;
+        }
+
+        .page-link {
+            color: #C87590;
+            background-color: #FFFFFF;
+            border-color: #EEDCE2;
+        }
+
         .page-link:hover {
             color: #FFFFFF;
-            background-color: #E8B6C4;
-            border-color: #E8B6C4;
+            background-color: #D98FA7;
+            border-color: #D98FA7;
         }
+
         .page-item.active .page-link {
-            background-color: #E8B6C4;
-            border-color: #E8B6C4;
+            background-color: #D98FA7;
+            border-color: #D98FA7;
             color: #FFFFFF;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .d-flex.justify-content-between {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 15px;
+            }
+
+            .btn-transaksi,
+            .summary-card {
+                width: 100%;
+            }
         }
     </style>
 
-    {{-- ========================= JUDUL DAN TOMBOL ========================= --}}
+
+    {{-- ===== JUDUL DAN TOMBOL ===== --}}
     <div class="d-flex justify-content-between align-items-center mb-3">
 
         <div>
@@ -133,38 +167,43 @@
 
     </div>
 
-    {{-- ========================= RANGKUMAN PENJUALAN ========================= --}}
+
+    {{-- ===== RANGKUMAN PENJUALAN ===== --}}
     <div class="row g-3 mb-4">
 
-        {{-- Total Penjualan --}}
+        {{-- Total penjualan --}}
         <div class="col-md-4">
             <div class="card summary-card summary-pink p-3 text-center">
                 <small class="text-muted text-uppercase">Total Penjualan</small>
+
                 <strong class="fs-4 harga">
                     Rp {{ number_format($totalPenjualan, 0, ',', '.') }}
                 </strong>
             </div>
         </div>
 
-        {{-- Jumlah Transaksi --}}
+        {{-- Jumlah transaksi --}}
         <div class="col-md-4">
             <div class="card summary-card summary-green p-3 text-center">
                 <small class="text-muted text-uppercase">Jumlah Transaksi</small>
+
                 <strong class="fs-4">{{ $jumlahTransaksi }} nota</strong>
             </div>
         </div>
 
-        {{-- Total Unit Terjual --}}
+        {{-- Total unit terjual --}}
         <div class="col-md-4">
             <div class="card summary-card summary-cream p-3 text-center">
                 <small class="text-muted text-uppercase">Total Unit Terjual</small>
+
                 <strong class="fs-4">{{ $totalUnitTerjual }} item</strong>
             </div>
         </div>
 
     </div>
 
-    {{-- ========================= TABEL RIWAYAT TRANSAKSI ========================= --}}
+
+    {{-- ===== TABEL RIWAYAT TRANSAKSI ===== --}}
     <div class="card p-3">
 
         <div class="table-responsive">
@@ -173,7 +212,7 @@
                 {{-- Kepala tabel --}}
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>No</th>
                         <th>Tanggal</th>
                         <th class="text-center">Jumlah Item</th>
                         <th class="text-end">Total Bayar (Rp)</th>
@@ -186,22 +225,20 @@
                     @forelse ($transaksis as $transaksi)
                         <tr>
 
-                            {{-- ID Transaksi --}}
-                            <td>#{{ $transaksi->id }}</td>
+                            {{-- ID transaksi --}}
+                            <td>{{ $transaksi->id }}</td>
 
                             {{-- Tanggal --}}
                             <td>{{ $transaksi->tanggal->format('d/m/Y H:i') }}</td>
 
-                            {{-- Jumlah Item --}}
+                            {{-- Jumlah item --}}
                             <td class="text-center">
                                 {{ $transaksi->detailTransaksis->count() }} item
                             </td>
 
-                            {{-- Total Bayar --}}
+                            {{-- Total bayar --}}
                             <td class="text-end harga">
-                                <strong>
-                                    Rp {{ number_format($transaksi->total_bayar, 0, ',', '.') }}
-                                </strong>
+                                Rp {{ number_format($transaksi->total_bayar, 0, ',', '.') }}
                             </td>
 
                             {{-- Aksi --}}
@@ -224,7 +261,7 @@
             </table>
         </div>
 
-        {{-- ========================= PAGINATION ========================= --}}
+        {{-- Pagination --}}
         <div class="mt-3">
             {{ $transaksis->links('pagination::bootstrap-5') }}
         </div>

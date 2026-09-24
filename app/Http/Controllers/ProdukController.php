@@ -21,13 +21,13 @@ class ProdukController extends Controller
     {
         return view('produk.create');
     }
-    
+
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'nama_produk' => 'required|string|max:255|unique:produk,nama_produk',
-            'harga' => 'required|integer|min:0', 
-            'stok' => 'required|integer|min:0', 
+            'harga' => 'required|integer|min:0',
+            'stok' => 'required|integer|min:0',
         ]);
 
         Produk::create($validated);
@@ -37,7 +37,7 @@ class ProdukController extends Controller
             ->with('success', 'Produk berhasil ditambahkan.');
     }
 
-    public function edit(Produk $produk): View
+    public function edit(Produk $produk): View //parameter
     {
         return view('produk.edit', compact('produk'));
     }
@@ -56,14 +56,13 @@ class ProdukController extends Controller
             ->route('produk.index')
             ->with('success', 'Produk berhasil diperbarui.');
     }
-    
+
     public function destroy(Produk $produk): RedirectResponse
     {
         try {
             $produk->delete();
             $pesan = 'Produk berhasil dihapus.';
         } catch (QueryException $e) {
-            // Kode 23000 = integrity constraint violation (data masih dirujuk tabel lain)
             $pesan = 'Produk tidak bisa dihapus karena sudah tercatat dalam riwayat transaksi.';
         }
 

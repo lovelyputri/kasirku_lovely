@@ -5,280 +5,411 @@
 
 @section('content')
 
+    {{-- ===== CSS HALAMAN TRANSAKSI BARU ===== --}}
     <style>
-        /* ========================= JUDUL ========================= */
+        /* ===== VARIABEL SPASI ===== */
+        :root {
+            --kontrol-tinggi: 42px;
+            --sel-padding-y: 14px;
+            --sel-padding-x: 12px;
+        }
+
+        /* ===== JUDUL ===== */
         h4 {
-            color: #647565;
+            color: #B96882;
             font-weight: 600;
         }
 
-        /* ========================= TABEL ========================= */
+        .text-muted {
+            color: #8A8082 !important;
+        }
+
+        /* ===== CARD ===== */
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #EEDCE2;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(190, 110, 135, 0.06);
+        }
+
+        /* ===== TABEL ===== */
         #tabelItem {
+            width: 100%;
+            table-layout: fixed;
             border-collapse: separate;
             border-spacing: 0;
         }
+
         #tabelItem thead th {
             background-color: #F7E8EC;
-            color: #687267;
-            border-bottom: 2px solid #E8DDE0;
-            padding: 12px;
+            color: #6B6064;
+            font-weight: 600;
+            border-bottom: 1px solid #EEDFE3;
+            padding: var(--sel-padding-x);
             vertical-align: middle;
+            white-space: nowrap;
         }
+
         #tabelItem tbody td {
-            padding: 12px;
-            border-color: #F0E5E8;
+            padding: var(--sel-padding-y) var(--sel-padding-x);
+            color: #625B60;
+            border-color: #F1E8E5;
+            vertical-align: top;
         }
 
-        /*
-         * PERBAIKAN POSISI BARIS ITEM
-         *
-         * Sebelumnya table memakai align-middle.
-         * Karena kolom jumlah mempunyai input + teks "Maks. stok",
-         * input terlihat lebih tinggi daripada dropdown.
-         *
-         * Sekarang semua isi baris dimulai dari posisi atas
-         * sehingga dropdown, input, subtotal, dan tombol hapus sejajar.
-         */
-        #tabelItem tbody .baris-item > td {
-            vertical-align: top !important;
+        #tabelItem tbody tr:hover {
+            background-color: #FFF8F5;
         }
 
-        /*
-         * Supaya input dan dropdown benar-benar memiliki
-         * tinggi yang sama.
-         */
-        #tabelItem .form-select,
-        #tabelItem .form-control {
-            min-height: 42px;
-        }
-
-        /* ========================= SELECT & INPUT ========================= */
+        /* ===== SELECT & INPUT ===== */
         .form-select,
         .form-control {
-            border: 2px solid #E8DDE0;
+            height: var(--kontrol-tinggi);
+            min-height: var(--kontrol-tinggi);
+            padding-top: 0;
+            padding-bottom: 0;
+            border: 1px solid #E7D8D5;
             border-radius: 10px;
+            background-color: #FFFFFF;
+            color: #625B60;
         }
+
         .form-select:focus,
         .form-control:focus {
-            border-color: #E8B6C4;
-            box-shadow: 0 0 0 3px rgba(232, 182, 196, 0.2);
+            border-color: #D98FA7;
+            box-shadow: 0 0 0 3px rgba(217, 143, 167, 0.18);
         }
 
-        /* ========================= SUBTOTAL & HARGA ========================= */
+        /* ===== SUBTOTAL / HARGA ===== */
         .harga {
-            color: #D88FA3;
-            font-weight: bold;
+            color: #C87590;
+            font-weight: 600;
         }
 
-        /*
-         * Supaya subtotal sejajar dengan bagian atas input.
-         */
         .subtotal-item {
-            padding-top: 12px !important;
+            line-height: var(--kontrol-tinggi);
+            white-space: nowrap;
         }
 
-        /* =========================
-           TOMBOL TAMBAH ITEM
-           Hijau pastel
-        ========================= */
+        /* ===== INFO STOK ===== */
+        .stok-info {
+            display: block;
+            min-height: 1.25rem;
+            margin-top: 6px;
+            font-size: 0.8rem;
+            line-height: 1.25rem;
+            color: #8A8082 !important;
+        }
+
+        /* ===== TOMBOL TAMBAH ITEM ===== */
         .btn-tambah-item {
-            background-color: #DCECCF;
-            border-color: #DCECCF;
-            color: #60745A;
+            margin-top: 16px;
+            padding: 8px 14px;
+            font-size: 0.875rem;
+            background-color: #E5A9BC;
+            border-color: #E5A9BC;
+            color: #FFFFFF;
             border-radius: 8px;
-        }
-        .btn-tambah-item:hover {
-            background-color: #C9DFBD;
-            border-color: #C9DFBD;
-            color: #53664E;
         }
 
-        /* =========================
-           TOMBOL HAPUS BARIS
-           Pink soft
-        ========================= */
+        .btn-tambah-item:hover {
+            background-color: #D48EA5;
+            border-color: #D48EA5;
+            color: #FFFFFF;
+        }
+
+        /* ===== TOMBOL HAPUS ===== */
         .btn-hapus {
-            background-color: #F4D5DC;
-            border-color: #F4D5DC;
-            color: #96616D;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--kontrol-tinggi);
+            height: var(--kontrol-tinggi);
+            padding: 0;
+            background-color: #F3D4DE;
+            border-color: #F3D4DE;
+            color: #955E70;
             border-radius: 8px;
-            font-size: 18px;
+            font-size: 20px;
             line-height: 1;
         }
+
         .btn-hapus:hover {
-            background-color: #EBC1CB;
-            border-color: #EBC1CB;
-            color: #855561;
+            background-color: #E9BFCC;
+            border-color: #E9BFCC;
+            color: #8A5365;
         }
 
-        /* =========================
-           TOMBOL SIMPAN
-           Pink pastel
-        ========================= */
-        .btn-simpan {
-            background-color: #E8B6C4;
-            border-color: #E8B6C4;
-            color: #FFFFFF;
-            border-radius: 9px;
-            padding: 9px 20px;
-        }
-        .btn-simpan:hover {
-            background-color: #D99AAA;
-            border-color: #D99AAA;
-            color: #FFFFFF;
+        /* ===== AREA TOMBOL FORM ===== */
+        .aksi-form {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #F1E8E5;
         }
 
-        /* =========================
-           TOMBOL BATAL
-           Cream pastel
-        ========================= */
+        .btn-simpan,
         .btn-batal {
-            background-color: #F3E2C7;
-            border-color: #F3E2C7;
-            color: #806B50;
+            padding: 10px 22px;
+            font-size: 1rem;
+            line-height: 1.5;
             border-radius: 9px;
-            padding: 9px 20px;
-        }
-        .btn-batal:hover {
-            background-color: #E8D2B0;
-            border-color: #E8D2B0;
-            color: #806B50;
         }
 
-        /* ========================= PANEL RINGKASAN ========================= */
-        .summary-card {
-            background-color: #FFF9E8;
-            border: 2px solid #F3E2C7;
-            border-radius: 15px;
+        .btn-simpan {
+            background-color: #D98FA7;
+            border-color: #D98FA7;
+            color: #FFFFFF;
         }
+
+        .btn-simpan:hover {
+            background-color: #C97892;
+            border-color: #C97892;
+            color: #FFFFFF;
+        }
+
+        .btn-batal {
+            background-color: #EFE3D8;
+            border-color: #EFE3D8;
+            color: #75645A;
+        }
+
+        .btn-batal:hover {
+            background-color: #E3D3C5;
+            border-color: #E3D3C5;
+            color: #6B5A50;
+        }
+
+        /* ===== PANEL RINGKASAN ===== */
+        .summary-card {
+            background-color: #FFFFFF;
+            border: 1px solid #EEDCE2;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(190, 110, 135, 0.06);
+        }
+
         .summary-title {
-            color: #647565;
+            color: #B96882;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        /* ========================= INFO STOK ========================= */
-        .stok-info {
-            display: block;
-            margin-top: 4px;
-            color: #819078 !important;
+        .summary-card hr {
+            margin: 16px 0;
+            border-color: #EEDCE2;
+            opacity: 1;
         }
 
-        /* ========================= ALERT ERROR ========================= */
+        /* ===== ALERT ERROR ===== */
         .alert-danger {
-            background-color: #FBE5EA;
-            border-color: #F1C9D3;
-            color: #9A6874;
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background-color: #F9E2E8;
+            border: 1px solid #EDC5D0;
+            color: #955B6B;
+            border-radius: 10px;
         }
 
-        /* ========================= RESPONSIVE ========================= */
+        /* ===== TOMBOL X ALERT ===== */
+        .btn-alert-close {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            margin-left: 15px;
+            padding: 0;
+            border: none;
+            background: transparent;
+            color: #1d1a1a;
+            font-size: 25px;
+            font-weight: 400;
+            line-height: 1;
+            cursor: pointer;
+            opacity: 0.75;
+        }
+
+        .btn-alert-close:hover {
+            color: #000000;
+            opacity: 1;
+        }
+
+        /* ===== PAGINATION ===== */
+        .page-link {
+            color: #C87590;
+            background-color: #FFFFFF;
+            border-color: #EEDCE2;
+        }
+
+        .page-link:hover {
+            color: #FFFFFF;
+            background-color: #D98FA7;
+            border-color: #D98FA7;
+        }
+
+        .page-item.active .page-link {
+            background-color: #D98FA7;
+            border-color: #D98FA7;
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             #tabelItem {
                 min-width: 700px;
             }
+
+            .aksi-form {
+                flex-direction: column;
+            }
+
+            .btn-batal,
+            .btn-simpan,
+            .btn-tambah-item {
+                width: 100%;
+            }
         }
     </style>
 
+
+
+    {{-- ===== NOTIF ERROR JUMLAH ===== --}}
+
+    @if ($errors->has('jumlah.*'))
+
+        <div class="alert alert-danger d-flex justify-content-between align-items-center">
+            <span>
+                Jumlah beli harus lebih dari 0.
+            </span>
+
+            <button type="button" class="btn-alert-close" onclick="this.parentElement.remove()" aria-label="Tutup">
+                &times;
+            </button>
+        </div>
+
+    @endif
+
+
     <div class="row">
 
-        {{-- ========================= FORM TRANSAKSI ========================= --}}
+        {{-- ===== FORM TRANSAKSI ===== --}}
         <div class="col-lg-8">
             <div class="card p-4">
 
-                <h4 class="mb-1">Form Transaksi Penjualan</h4>
+                <h4 class="mb-1">
+                    Form Transaksi Penjualan
+                </h4>
+
                 <p class="text-muted mb-4">
                     Pilih produk dan masukkan jumlah barang yang dibeli.
                 </p>
 
-                {{-- Form transaksi --}}
                 <form action="{{ route('transaksi.store') }}" method="POST" id="formTransaksi" novalidate>
                     @csrf
 
-                    {{-- ========================= ERROR VALIDASI PRODUK ========================= --}}
-                    @error('produk_id')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-
-                    {{-- ========================= TABEL ITEM ========================= --}}
+                    {{-- ===== TABEL ITEM ===== --}}
                     <div class="table-responsive">
-                        <table class="table align-middle" id="tabelItem">
+
+                        <table class="table align-middle mb-0" id="tabelItem">
+
+                            <colgroup>
+                                <col>
+                                <col style="width: 130px">
+                                <col style="width: 160px">
+                                <col style="width: 66px">
+                            </colgroup>
 
                             <thead>
                                 <tr>
-                                    <th style="width: 55%">Produk</th>
-                                    <th style="width: 20%">Jumlah Beli</th>
-                                    <th class="text-end" style="width: 20%">Subtotal</th>
-                                    <th style="width: 5%"></th>
+                                    <th>Produk</th>
+                                    <th>Jumlah Beli</th>
+                                    <th class="text-end">Subtotal</th>
+                                    <th></th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                {{-- ========================= BARIS ITEM PERTAMA ========================= --}}
+
+                                {{-- ===== BARIS ITEM ===== --}}
                                 <tr class="baris-item">
 
-                                    {{-- ========================= PILIH PRODUK ========================= --}}
+                                    {{-- Produk --}}
                                     <td>
+
                                         <select name="produk_id[]" class="form-select select-produk" required>
-                                            <option value="">-- Pilih Produk --</option>
+
+                                            <option value="">
+                                                -- Pilih Produk --
+                                            </option>
+
                                             @foreach ($produks as $produk)
-                                                <option
-                                                    value="{{ $produk->id }}"
-                                                    data-harga="{{ $produk->harga }}"
-                                                    data-stok="{{ $produk->stok }}"
-                                                    data-nama="{{ $produk->nama_produk }}"
-                                                >
-                                                    {{ $produk->nama_produk }} — Rp {{ number_format($produk->harga, 0, ',', '.') }} (stok {{ $produk->stok }})
+
+                                                <option value="{{ $produk->id }}" data-harga="{{ $produk->harga }}" data-stok="{{ $produk->stok }}" data-nama="{{ $produk->nama_produk }}">
+                                                    {{ $produk->nama_produk }}
+                                                    —
+                                                    Rp {{ number_format($produk->harga, 0, ',', '.') }}
+                                                    (stok {{ $produk->stok }})
                                                 </option>
+
                                             @endforeach
+
                                         </select>
+
                                     </td>
 
-                                    {{-- ========================= JUMLAH ========================= --}}
+
+                                    {{-- Jumlah --}}
                                     <td>
-                                        <input
-                                            type="number"
-                                            name="jumlah[]"
-                                            class="form-control input-jumlah"
-                                            min="1"
-                                            value="1"
-                                            required
-                                        >
+                                        <input type="number" name="jumlah[]" class="form-control input-jumlah" value="1" required>
                                         <small class="text-muted stok-info"></small>
+
                                     </td>
 
-                                    {{-- ========================= SUBTOTAL ========================= --}}
+
+                                    {{-- Subtotal --}}
                                     <td class="text-end harga subtotal-item">
                                         Rp 0
                                     </td>
 
-                                    {{-- ========================= HAPUS BARIS ========================= --}}
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-hapus" title="Hapus baris">
+
+                                    {{-- Hapus --}}
+                                    <td class="text-center">
+
+                                        <button type="button" class="btn btn-hapus" title="Hapus baris">
                                             &times;
                                         </button>
+
                                     </td>
 
                                 </tr>
+
                             </tbody>
 
                         </table>
+
                     </div>
 
-                    {{-- ========================= TAMBAH ITEM ========================= --}}
-                    <button type="button" class="btn btn-tambah-item btn-sm" id="tambahItem">
+
+                    {{-- ===== TAMBAH ITEM ===== --}}
+                    <button
+                        type="button"
+                        class="btn btn-tambah-item"
+                        id="tambahItem"
+                    >
                         + Tambah Item
                     </button>
 
-                    {{-- ========================= TOMBOL FORM ========================= --}}
-                    <div class="d-flex justify-content-end gap-2 mt-4">
 
-                        {{-- Batal --}}
-                        <a href="{{ route('produk.index') }}" class="btn btn-batal">
+                    {{-- ===== TOMBOL FORM ===== --}}
+                    <div class="aksi-form">
+                        <a href="{{ route('transaksi.index') }}" class="btn btn-batal">
                             Batal
                         </a>
 
-                        {{-- Simpan --}}
-                        <button type="submit" class="btn btn-simpan btn-lg">
+                        <button type="submit" class="btn btn-simpan">
                             Simpan Transaksi
                         </button>
 
@@ -289,194 +420,303 @@
             </div>
         </div>
 
-        {{-- ========================= PANEL RINGKASAN ========================= --}}
+
+        {{-- ===== PANEL RINGKASAN ===== --}}
         <div class="col-lg-4 mt-3 mt-lg-0">
+
             <div class="card p-4 summary-card">
 
-                <h6 class="summary-title">Ringkasan</h6>
+                <h6 class="summary-title mb-3">
+                    Ringkasan
+                </h6>
 
-                <p class="mb-1 text-muted">
-                    Jumlah item: <strong id="infoItem">0</strong>
+                <p class="mb-0 text-muted">
+                    Jumlah item:
+                    <strong id="infoItem">0</strong>
                 </p>
 
                 <hr>
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <span class="fs-5">Total Bayar</span>
-                    <strong class="fs-4 harga" id="infoTotal">Rp 0</strong>
+
+                    <span class="fs-5">
+                        Total Bayar
+                    </span>
+
+                    <strong class="fs-4 harga" id="infoTotal">
+                        Rp 0
+                    </strong>
+
                 </div>
 
-                <p class="text-muted small mt-2 mb-0">
+                <p class="text-muted small mt-3 mb-0">
                     Total ini adalah perhitungan sementara.
                     Angka final tetap dihitung ulang oleh server
                     saat tombol <em>Simpan Transaksi</em> ditekan.
                 </p>
 
             </div>
+
         </div>
 
     </div>
 
 @endsection
 
-{{-- ========================= JAVASCRIPT ========================= --}}
+
+{{-- ===== JAVASCRIPT ===== --}}
 @push('scripts')
+
 <script>
-(function () {
+    (function () {
 
-    // ==========================================
-    // FORMAT RUPIAH
-    // Contoh: 3500 -> Rp 3.500
-    // ==========================================
-    const rupiah = n => 'Rp ' + Number(n).toLocaleString('id-ID');
+        // ----- Format rupiah -----
+        const rupiah = n =>
+            'Rp ' + Number(n).toLocaleString('id-ID');
 
-    // ==========================================
-    // ELEMENT
-    // ==========================================
-    const tbodyItem = document.querySelector('#tabelItem tbody');
-    const infoTotal = document.getElementById('infoTotal');
-    const infoItem = document.getElementById('infoItem');
 
-    // ==========================================
-    // HITUNG TOTAL
-    // ==========================================
-    function hitungTotal() {
-        let total = 0;
-        let item = 0;
+        // ----- Element -----
+        const tbodyItem =
+            document.querySelector('#tabelItem tbody');
 
-        tbodyItem.querySelectorAll('.baris-item').forEach(baris => {
-            const select = baris.querySelector('.select-produk');
-            const jumlah = parseInt(baris.querySelector('.input-jumlah').value || 0, 10);
-            const harga = parseInt(select.selectedOptions[0]?.dataset.harga || 0, 10);
+        const infoTotal =
+            document.getElementById('infoTotal');
 
-            // Rumus: subtotal = harga x jumlah
-            const subtotal = harga * jumlah;
+        const infoItem =
+            document.getElementById('infoItem');
 
-            // Tampilkan subtotal
-            baris.querySelector('.subtotal-item').textContent = rupiah(subtotal);
 
-            // Tambahkan ke total
-            total += subtotal;
+        // ----- Hitung total -----
+        function hitungTotal() {
 
-            // Hitung jumlah baris yang sudah terisi
-            if (select.value && jumlah > 0) {
-                item++;
+            let total = 0;
+            let item = 0;
+
+            tbodyItem
+                .querySelectorAll('.baris-item')
+                .forEach(baris => {
+
+                    const select =
+                        baris.querySelector('.select-produk');
+
+                    const jumlah =
+                        parseInt(
+                            baris.querySelector('.input-jumlah').value || 0,
+                            10
+                        );
+
+                    const harga =
+                        parseInt(
+                            select.selectedOptions[0]?.dataset.harga || 0,
+                            10
+                        );
+
+
+                    // Subtotal per baris
+                    const subtotal = harga * jumlah;
+
+                    baris.querySelector(
+                        '.subtotal-item'
+                    ).textContent = rupiah(subtotal);
+
+
+                    total += subtotal;
+
+
+                    // Hitung item yang sudah terisi
+                    if (select.value && jumlah > 0) {
+                        item++;
+                    }
+
+                });
+
+
+            infoTotal.textContent =
+                rupiah(total);
+
+            infoItem.textContent =
+                item;
+        }
+
+
+        // ----- Batasi jumlah sesuai stok -----
+        function batasiStok(baris) {
+
+            const select =
+                baris.querySelector('.select-produk');
+
+            const input =
+                baris.querySelector('.input-jumlah');
+
+            const info =
+                baris.querySelector('.stok-info');
+
+            const opsi =
+                select.selectedOptions[0];
+
+
+            if (opsi && opsi.dataset.stok) {
+
+                const stok =
+                    parseInt(
+                        opsi.dataset.stok,
+                        10
+                    );
+
+
+                input.max = stok;
+
+                info.textContent =
+                    'Maks. ' + stok;
+
+
+                // Jika jumlah melebihi stok
+                if (
+                    parseInt(input.value, 10) > stok
+                ) {
+
+                    input.value = stok;
+
+                }
+
+            } else {
+
+                input.removeAttribute('max');
+
+                info.textContent = '';
+
             }
+        }
+
+
+        // ----- Saat produk diganti -----
+        tbodyItem.addEventListener('change', e => {
+
+            if (
+                e.target.matches('.select-produk')
+            ) {
+
+                batasiStok(
+                    e.target.closest('.baris-item')
+                );
+
+            }
+
+            hitungTotal();
+
         });
 
-        // Tampilkan total
-        infoTotal.textContent = rupiah(total);
 
-        // Tampilkan jumlah item
-        infoItem.textContent = item;
-    }
+        // ----- Saat jumlah diubah -----
+        tbodyItem.addEventListener('input', e => {
 
-    // ==========================================
-    // BATASI STOK
-    // ==========================================
-    function batasiStok(baris) {
-        const select = baris.querySelector('.select-produk');
-        const input = baris.querySelector('.input-jumlah');
-        const opsi = select.selectedOptions[0];
-
-        if (opsi && opsi.dataset.stok) {
-            const stok = parseInt(opsi.dataset.stok, 10);
-
-            // Maksimal input = stok
-            input.max = stok;
-
-            // Tampilkan informasi stok
-            baris.querySelector('.stok-info').textContent = 'Maks. ' + stok;
-
-            // Kalau jumlah melebihi stok, otomatis disamakan dengan stok
-            if (parseInt(input.value, 10) > stok) {
-                input.value = stok;
+            if (
+                !e.target.matches('.input-jumlah')
+            ) {
+                return;
             }
-        } else {
-            input.removeAttribute('max');
-            baris.querySelector('.stok-info').textContent = '';
-        }
-    }
 
-    // ==========================================
-    // SAAT PRODUK DIGANTI
-    // ==========================================
-    tbodyItem.addEventListener('change', e => {
-        if (e.target.matches('.select-produk')) {
-            batasiStok(e.target.closest('.baris-item'));
-        }
-        hitungTotal();
-    });
-
-    // ==========================================
-    // SAAT JUMLAH DIUBAH
-    // ==========================================
-    tbodyItem.addEventListener('input', e => {
-        if (e.target.matches('.input-jumlah')) {
             hitungTotal();
-        }
-    });
 
-    // ==========================================
-    // HAPUS BARIS
-    // ==========================================
-    tbodyItem.addEventListener('click', e => {
-        /*
-         * Jangan hapus kalau hanya tersisa
-         * satu baris.
-         */
-        if (e.target.matches('.btn-hapus') && tbodyItem.querySelectorAll('.baris-item').length > 1) {
-            e.target.closest('.baris-item').remove();
-            hitungTotal();
-        }
-    });
+        });
 
-    // ==========================================
-    // TAMBAH ITEM
-    // ==========================================
-    document.getElementById('tambahItem').addEventListener('click', () => {
-        // Ambil baris pertama
-        const barisBaru = tbodyItem.querySelector('.baris-item').cloneNode(true);
 
-        // Reset produk
-        barisBaru.querySelector('.select-produk').value = '';
+        // ----- Hapus baris -----
+        tbodyItem.addEventListener('click', e => {
 
-        // Reset jumlah
-        barisBaru.querySelector('.input-jumlah').value = 1;
+            if (
+                e.target.matches('.btn-hapus') &&
+                tbodyItem.querySelectorAll('.baris-item').length > 1
+            ) {
 
-        // Reset max stok
-        barisBaru.querySelector('.input-jumlah').removeAttribute('max');
+                e.target
+                    .closest('.baris-item')
+                    .remove();
 
-        // Reset informasi stok
-        barisBaru.querySelector('.stok-info').textContent = '';
+                hitungTotal();
 
-        // Reset subtotal
-        barisBaru.querySelector('.subtotal-item').textContent = 'Rp 0';
+            }
 
-        // Masukkan baris baru
-        tbodyItem.appendChild(barisBaru);
+        });
 
-        // Hitung ulang
+
+        // ----- Tambah item -----
+        document
+            .getElementById('tambahItem')
+            .addEventListener('click', () => {
+
+                // Salin baris pertama
+                const barisBaru =
+                    tbodyItem
+                        .querySelector('.baris-item')
+                        .cloneNode(true);
+
+
+                // Reset produk
+                barisBaru.querySelector(
+                    '.select-produk'
+                ).value = '';
+
+
+                // Reset jumlah
+                barisBaru.querySelector(
+                    '.input-jumlah'
+                ).value = 1;
+
+
+                // Hapus batas stok
+                barisBaru.querySelector(
+                    '.input-jumlah'
+                ).removeAttribute('max');
+
+
+                // Reset info stok
+                barisBaru.querySelector(
+                    '.stok-info'
+                ).textContent = '';
+
+
+                // Reset subtotal
+                barisBaru.querySelector(
+                    '.subtotal-item'
+                ).textContent = 'Rp 0';
+
+
+                tbodyItem.appendChild(barisBaru);
+
+                hitungTotal();
+
+            });
+
+
+        // ----- Validasi sebelum submit -----
+        document
+            .getElementById('formTransaksi')
+            .addEventListener('submit', function (e) {
+
+                const kosong =
+                    [
+                        ...tbodyItem.querySelectorAll('.select-produk')
+                    ].some(s => s.value === '');
+
+
+                if (kosong) {
+
+                    e.preventDefault();
+
+                    alert(
+                        'Semua baris harus memilih produk terlebih dahulu.'
+                    );
+
+                }
+
+            });
+
+
+        // ----- Hitung saat halaman dibuka -----
         hitungTotal();
-    });
 
-    // ==========================================
-    // VALIDASI SEBELUM SUBMIT
-    // ==========================================
-    document.getElementById('formTransaksi').addEventListener('submit', function (e) {
-        const kosong = [...tbodyItem.querySelectorAll('.select-produk')].some(s => s.value === '');
-
-        if (kosong) {
-            e.preventDefault();
-            alert('Semua baris harus memilih produk terlebih dahulu.');
-        }
-    });
-
-    // ==========================================
-    // HITUNG SAAT HALAMAN PERTAMA DIBUKA
-    // ==========================================
-    hitungTotal();
-
-})();
+    })();
 </script>
+
 @endpush

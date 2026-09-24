@@ -1,188 +1,208 @@
 {{-- Layout utama aplikasi LokkaPay --}}
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>@yield('title', 'Dashboard') - {{ config('app.name', 'LokkaPay') }}</title>
 
     {{-- Bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        /* ========================= WARNA DASAR ========================= */
+        /* ===== WARNA DASAR ===== */
         body {
-            background-color: #FFF9E8;
-            color: #5F5F5F;
+            background-color: #FFF9F3;
+            color: #625B60;
         }
 
-        /* ========================= NAVBAR ========================= */
+        /* ===== NAVBAR ===== */
         .navbar {
-            background-color: #DCECCF !important;
+            background-color: #F8DDE5 !important;
             position: relative;
         }
 
-        /*
-         * LOGO
-         * Tetap berada di sebelah kiri.
-         */
         .navbar-brand {
-            color: #5F7560 !important;
+            color: #B96882 !important;
             font-weight: bold;
             position: absolute;
-            left: 10%;
+            left: 5%;
             top: 50%;
             transform: translateY(-50%);
             z-index: 10;
         }
 
         .navbar .nav-link {
-            color: #647565 !important;
+            color: #75656B !important;
             padding-left: 14px;
             padding-right: 14px;
         }
+
         .navbar .nav-link:hover {
-            color: #D88FA3 !important;
+            color: #C87590 !important;
         }
+
         .navbar .nav-link.active {
-            color: #D88FA3 !important;
+            color: #C87590 !important;
             font-weight: bold;
         }
 
-        /*
-         * MENU NAVBAR
-         * Dibuat benar-benar berada di tengah.
-         */
         .navbar .navbar-collapse {
             justify-content: center;
         }
+
         .navbar .navbar-nav {
             margin-left: auto !important;
             margin-right: auto !important;
         }
 
-        /* ========================= CARD ========================= */
+        /* ===== CARD ===== */
         .card {
-            background-color: white;
-            border: 2px solid #F3DDE4;
+            background-color: #FFFFFF;
+            border: 1px solid #F0D4DD;
             border-radius: 15px;
-            box-shadow: 0 3px 10px rgba(120, 100, 100, 0.08);
+            box-shadow: 0 3px 10px rgba(190, 110, 135, 0.08);
         }
 
-        /* ========================= TABEL ========================= */
+        /* ===== TABEL ===== */
         .table th {
-            background-color: #F7E8EC;
-            color: #687267;
+            background-color: #FBE9EE;
+            color: #695D63;
             border: none;
         }
+
         .table td {
             vertical-align: middle;
         }
 
-        /* ========================= HARGA ========================= */
+        /* ===== HARGA ===== */
         .harga {
-            color: #D88FA3;
+            color: #C87590;
             font-weight: bold;
         }
 
-        /* ========================= TOMBOL PRIMARY ========================= */
+        /* ===== TOMBOL PRIMARY ===== */
         .btn-primary {
-            background-color: #E8B6C4;
-            border-color: #E8B6C4;
-            color: white;
+            background-color: #D98FA7;
+            border-color: #D98FA7;
+            color: #FFFFFF;
         }
+
         .btn-primary:hover {
-            background-color: #D99AAA;
-            border-color: #D99AAA;
-            color: white;
+            background-color: #C97892;
+            border-color: #C97892;
+            color: #FFFFFF;
         }
 
-        /* ========================= TOMBOL SUCCESS ========================= */
+        /* ===== TOMBOL SECONDARY ===== */
+        .btn-secondary {
+            background-color: #EAD9D0;
+            border-color: #EAD9D0;
+            color: #6D5D59;
+        }
+
+        .btn-secondary:hover {
+            background-color: #DDC6BB;
+            border-color: #DDC6BB;
+            color: #5F514D;
+        }
+
+        /* ===== TOMBOL SUCCESS ===== */
         .btn-success {
-            background-color: #BFDDB5;
-            border-color: #BFDDB5;
-            color: #557052;
+            background-color: #DCA7B8;
+            border-color: #DCA7B8;
+            color: #FFFFFF;
         }
+
         .btn-success:hover {
-            background-color: #AACCA0;
-            border-color: #AACCA0;
-            color: #557052;
+            background-color: #CA8D9F;
+            border-color: #CA8D9F;
+            color: #FFFFFF;
         }
 
-        /* ========================= PESAN BERHASIL ========================= */
+        /* ===== ALERT ===== */
         .alert-success {
-            background-color: #E5F1DC;
-            border-color: #CFE3C5;
-            color: #60765A;
+            background-color: #F8E7ED;
+            border-color: #EBCBD6;
+            color: #875D6C;
         }
 
-        /* ========================= PESAN ERROR ========================= */
         .alert-danger {
-            background-color: #FBE5EA;
-            border-color: #F1C9D3;
-            color: #9A6874;
+            background-color: #F9E2E8;
+            border-color: #EDC5D0;
+            color: #955B6B;
         }
 
-        /* ========================= BADGE STOK ========================= */
+        /* ===== BADGE ===== */
         .bg-success {
-            background-color: #CFE5C7 !important;
-            color: #587054 !important;
-        }
-        .bg-danger {
-            background-color: #F4D5DC !important;
-            color: #96616D !important;
+            background-color: #E7C3CF !important;
+            color: #80576A !important;
         }
 
-        /* ========================= INPUT FORM ========================= */
+        .bg-danger {
+            background-color: #F1CBD5 !important;
+            color: #8F5968 !important;
+        }
+
+        /* ===== INPUT FORM ===== */
         .form-control,
         .form-select {
-            border: 2px solid #E8DDE0;
+            border: 1px solid #E7D8D5;
             border-radius: 10px;
+            background-color: #FFFFFF;
         }
+
         .form-control:focus,
         .form-select:focus {
-            border-color: #E8B6C4;
-            box-shadow: 0 0 0 3px rgba(232, 182, 196, 0.2);
+            border-color: #D98FA7;
+            box-shadow: 0 0 0 3px rgba(217, 143, 167, 0.18);
         }
 
-        /* ========================= JUDUL ========================= */
+        /* ===== JUDUL ===== */
         h1, h2, h3, h4, h5 {
-            color: #647565;
+            color: #665B60;
         }
 
-        /* ========================= LINK ========================= */
+        /* ===== LINK ===== */
         a {
-            color: #D88FA3;
+            color: #C87590;
         }
+
         a:hover {
-            color: #B9788C;
+            color: #A95E77;
         }
 
-        /* ========================= PAGINATION ========================= */
+        /* ===== PAGINATION ===== */
         .page-link {
-            color: #D88FA3;
-            background-color: white;
-            border-color: #F0DCE2;
-        }
-        .page-link:hover {
-            color: white;
-            background-color: #E8B6C4;
-            border-color: #E8B6C4;
-        }
-        .page-item.active .page-link {
-            background-color: #E8B6C4;
-            border-color: #E8B6C4;
+            color: #C87590;
+            background-color: #FFFFFF;
+            border-color: #EDD7DE;
         }
 
-        /* ========================= NAVBAR MOBILE ========================= */
+        .page-link:hover {
+            color: #FFFFFF;
+            background-color: #D98FA7;
+            border-color: #D98FA7;
+        }
+
+        .page-item.active .page-link {
+            background-color: #D98FA7;
+            border-color: #D98FA7;
+        }
+
+        /* ===== MOBILE ===== */
         @media (max-width: 991.98px) {
             .navbar-brand {
                 position: static;
                 transform: none;
             }
+
             .navbar .navbar-collapse {
                 text-align: center;
             }
+
             .navbar .navbar-nav {
                 margin-left: auto !important;
                 margin-right: auto !important;
@@ -194,16 +214,16 @@
 
 <body>
 
-    {{-- ========================= NAVBAR ========================= --}}
+    {{-- ===== NAVBAR ===== --}}
     <nav class="navbar navbar-expand-lg mb-4">
         <div class="container">
 
-            {{-- ========================= LOGO / NAMA APLIKASI (Tetap di kiri) ========================= --}}
+            {{-- Logo / nama aplikasi --}}
             <a class="navbar-brand" href="{{ route('home') }}">
-                🛍️ LokkaPay
+                🧴 Kasirku
             </a>
 
-            {{-- ========================= TOMBOL MENU HP ========================= --}}
+            {{-- Tombol menu HP --}}
             <button
                 class="navbar-toggler ms-auto"
                 type="button"
@@ -216,27 +236,33 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            {{-- ========================= MENU (Berada di tengah navbar) ========================= --}}
+            {{-- Menu navbar --}}
             <div class="collapse navbar-collapse" id="navMenu">
                 <ul class="navbar-nav">
 
-                    {{-- Daftar Produk --}}
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('home', 'produk.*') ? 'active' : '' }}" href="{{ route('produk.index') }}">
+                        <a
+                            class="nav-link {{ request()->routeIs('home', 'produk.*') ? 'active' : '' }}"
+                            href="{{ route('produk.index') }}"
+                        >
                             Daftar Produk
                         </a>
                     </li>
 
-                    {{-- Transaksi Baru --}}
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('transaksi.create') ? 'active' : '' }}" href="{{ route('transaksi.create') }}">
+                        <a
+                            class="nav-link {{ request()->routeIs('transaksi.create') ? 'active' : '' }}"
+                            href="{{ route('transaksi.create') }}"
+                        >
                             Transaksi Baru
                         </a>
                     </li>
 
-                    {{-- Riwayat Transaksi --}}
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('transaksi.index', 'transaksi.show') ? 'active' : '' }}" href="{{ route('transaksi.index') }}">
+                        <a
+                            class="nav-link {{ request()->routeIs('transaksi.index', 'transaksi.show') ? 'active' : '' }}"
+                            href="{{ route('transaksi.index') }}"
+                        >
                             Riwayat Transaksi
                         </a>
                     </li>
@@ -247,7 +273,8 @@
         </div>
     </nav>
 
-    {{-- ========================= ISI HALAMAN ========================= --}}
+
+    {{-- ===== ISI HALAMAN ===== --}}
     <main class="container pb-5">
 
         {{-- Pesan berhasil --}}
@@ -271,6 +298,7 @@
 
     </main>
 
+
     {{-- Bootstrap JavaScript --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -278,4 +306,5 @@
     @stack('scripts')
 
 </body>
+
 </html>

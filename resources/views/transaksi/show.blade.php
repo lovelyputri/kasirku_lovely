@@ -5,90 +5,119 @@
 
 @section('content')
 
-    {{-- ========================= CSS ========================= --}}
+    {{-- ===== CSS HALAMAN DETAIL TRANSAKSI ===== --}}
     <style>
-        /* ========================= JUDUL ========================= */
+        /* ===== JUDUL ===== */
         h4 {
-            color: #647565;
+            color: #B96882;
             font-weight: 600;
         }
 
-        /* =========================
-           TOMBOL KEMBALI
-           Cream pastel
-        ========================= */
+        .text-muted {
+            color: #8A8082 !important;
+        }
+
+        /* ===== CARD ===== */
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #EEDCE2;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(190, 110, 135, 0.06);
+        }
+
+        /* ===== TOMBOL KEMBALI (cream / beige) ===== */
         .btn-kembali {
-            background-color: #F3E2C7;
-            border-color: #F3E2C7;
-            color: #806B50;
+            background-color: #EFE3D8;
+            border-color: #EFE3D8;
+            color: #75645A;
             border-radius: 8px;
             padding: 6px 13px;
         }
+
         .btn-kembali:hover {
-            background-color: #E8D2B0;
-            border-color: #E8D2B0;
-            color: #806B50;
+            background-color: #E3D3C5;
+            border-color: #E3D3C5;
+            color: #6B5A50;
         }
 
-        /* =========================
-           HEADER TABEL
-           Pink pastel lembut
-        ========================= */
+        /* ===== TABEL ===== */
+        .table {
+            margin-bottom: 0;
+        }
+
         .table thead th {
             background-color: #F7E8EC;
-            color: #687267;
-            border-bottom: 2px solid #E8DDE0;
+            color: #6B6064;
+            font-weight: 600;
+            border-bottom: 1px solid #EEDFE3;
             padding: 12px;
+            vertical-align: middle;
         }
 
-        /* ========================= ISI TABEL ========================= */
         .table tbody td {
             padding: 12px;
-            border-color: #F0E5E8;
-            color: #666666;
+            color: #625B60;
+            border-color: #F1E8E5;
+            vertical-align: middle;
         }
 
-        /* ========================= HARGA ========================= */
+        .table tbody tr:hover {
+            background-color: #FFF8F5;
+        }
+
+        /* ===== HARGA ===== */
         .harga {
-            color: #D88FA3;
+            color: #C87590;
             font-weight: 600;
         }
 
-        /* =========================
-           TOTAL BAYAR
-           Hijau pastel
-        ========================= */
+        /* ===== TOTAL BAYAR (pink soft) ===== */
         .total-row {
-            background-color: #DCECCF;
-            border-top: 2px solid #C9DFBD;
+            background-color: #F8E7ED;
+            border-top: 1px solid #EBCBD6;
         }
+
         .total-row td {
             padding: 15px 12px;
-            color: #60745A;
+            color: #875D6C;
         }
 
-        /* ========================= TOTAL HARGA ========================= */
         .total-harga {
-            color: #60745A !important;
+            color: #C87590 !important;
             font-size: 20px;
-            font-weight: bold;
+            font-weight: 600;
         }
 
-        /* ========================= CARD ========================= */
-        .card {
-            border-radius: 15px;
+        /* ===== FOOTER ===== */
+        .card .text-center {
+            color: #8A8082;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .d-flex.justify-content-between {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 15px;
+            }
+
+            .btn-kembali {
+                width: 100%;
+            }
         }
     </style>
+
 
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card p-4">
 
-                {{-- ========================= HEADER STRUK ========================= --}}
+                {{-- ===== HEADER STRUK ===== --}}
                 <div class="d-flex justify-content-between align-items-start mb-4">
 
                     <div>
                         <h4 class="mb-1">Struk Transaksi #{{ $transaksi->id }}</h4>
+
                         <span class="text-muted">
                             {{ $transaksi->tanggal->format('d/m/Y H:i:s') }}
                         </span>
@@ -101,7 +130,8 @@
 
                 </div>
 
-                {{-- ========================= TABEL DETAIL TRANSAKSI ========================= --}}
+
+                {{-- ===== TABEL DETAIL TRANSAKSI ===== --}}
                 <div class="table-responsive">
                     <table class="table align-middle">
 
@@ -119,20 +149,16 @@
                             @foreach ($transaksi->detailTransaksis as $detail)
                                 <tr>
 
-                                    {{-- Nama Produk --}}
-                                    <td>
-                                        {{ $detail->produk->nama_produk ?? '(produk terhapus)' }}
-                                    </td>
+                                    {{-- Nama produk --}}
+                                    <td>{{ $detail->produk->nama_produk ?? '(produk terhapus)' }}</td>
 
-                                    {{-- Harga Satuan --}}
+                                    {{-- Harga satuan --}}
                                     <td class="text-center harga">
                                         Rp {{ number_format($detail->produk->harga ?? 0, 0, ',', '.') }}
                                     </td>
 
                                     {{-- Jumlah --}}
-                                    <td class="text-center">
-                                        {{ $detail->jumlah }}
-                                    </td>
+                                    <td class="text-center">{{ $detail->jumlah }}</td>
 
                                     {{-- Subtotal --}}
                                     <td class="text-end harga">
@@ -143,10 +169,11 @@
                             @endforeach
                         </tbody>
 
-                        {{-- ========================= TOTAL BAYAR ========================= --}}
+                        {{-- Total bayar --}}
                         <tfoot>
                             <tr class="total-row">
                                 <td colspan="3" class="fw-bold">TOTAL BAYAR</td>
+
                                 <td class="text-end total-harga">
                                     Rp {{ number_format($transaksi->total_bayar, 0, ',', '.') }}
                                 </td>
@@ -156,7 +183,8 @@
                     </table>
                 </div>
 
-                {{-- ========================= FOOTER STRUK ========================= --}}
+
+                {{-- ===== FOOTER STRUK ===== --}}
                 <div class="text-center mt-4">
                     <small class="text-muted">
                         Terima kasih telah melakukan transaksi.
