@@ -13,39 +13,58 @@ LAPORAN PENGUJIAN APLIKASI KASIR
 +----+----------------------------+-----------------------+------------------------+------------------------+--------+
 
 
-LAPORAN PENGUJIAN KASIRKU
+# LAPORAN PENGUJIAN APLIKASI KASIR
 
-1. Pengujian Perhitungan Subtotal
+* **No:** 1
 
-Nama Test:
-test_hitung_subtotal
+* **Nama Test:** `test_hitung_subtotal`
 
-Skenario:
-Menguji perhitungan harga Rp15.000 dikali jumlah 3.
+* **Skenario:** Menguji perhitungan harga Rp15.000 dikali jumlah 3.
 
-Expected Result:
-Subtotal sebesar Rp45.000.
+* **Expected Result:** Subtotal sebesar Rp45.000.
 
-Actual Result:
-Subtotal sebesar Rp45.000.
+* **Actual Result:** Subtotal sebesar Rp45.000.
 
-Status:
-Pass
+* **Status:** Pass
 
 
-2. Pengujian Pengurangan Stok
+* **No:** 2
 
-Nama Test:
-test_kurangi_stok
+* **Nama Test:** `test_kurangi_stok`
 
-Skenario:
-Menguji stok awal 10 yang dikurangi sebanyak 3.
+* **Skenario:** Menguji stok awal 10 yang dikurangi sebanyak 3.
 
-Expected Result:
-Sisa stok menjadi 7.
+* **Expected Result:** Sisa stok menjadi 7.
 
-Actual Result:
-Sisa stok menjadi 7.
+* **Actual Result:** Sisa stok menjadi 7.
 
-Status:
-Pass
+* **Status:** Pass
+
+
+
+# LAPORAN PENGUJIAN KASIRKU
+
+## 1. Pengujian Perhitungan Subtotal
+
+* **Nama Test:** `test_hitung_subtotal`
+
+* **Skenario:** Menguji perhitungan harga Rp15.000 dikali jumlah 3.
+
+* **Expected Result:** Subtotal sebesar Rp45.000.
+
+* **Actual Result:** Subtotal sebesar Rp45.000.
+
+* **Status:** Pass
+
+
+## 2. Pengujian Pengurangan Stok
+
+* **Nama Test:** `test_kurangi_stok`
+
+* **Skenario:** Menguji stok awal 10 yang dikurangi sebanyak 3.
+
+* **Expected Result:** Sisa stok menjadi 7.
+
+* **Actual Result:** Sisa stok menjadi 7.
+
+* **Status:** Pass

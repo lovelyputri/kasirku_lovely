@@ -1,4 +1,4 @@
-LAPORAN DEBUGGING APLIKASI KASIR
+# LAPORAN DEBUGGING KASIRKU
 
 +----+--------------------------------+----------------------------------+----------------------------------+--------+
 | No | Bug                            | Penyebab                         | Solusi                           | Status |
@@ -21,52 +21,48 @@ LAPORAN DEBUGGING APLIKASI KASIR
 |    |                                | belum sesuai desain aplikasi.  | rapi dan sesuai desain.          |        |
 +----+--------------------------------+----------------------------------+----------------------------------+--------+
 
+# LAPORAN DEBUGGING KASIRKU
 
-LAPORAN DEBUGGING KASIRKU
+## 1. Bug Route Tidak Ditemukan
 
-1. Bug Route Tidak Ditemukan
-
-Penyebab:
+**Penyebab:**
 Terdapat route destroy yang double atau duplikat sehingga route tidak dapat ditemukan dan tidak bisa diakses dengan benar.
 
-Solusi:
+**Solusi:**
 Menghapus route destroy yang double atau duplikat.
 
-Status:
+**Status:**
 Fixed
 
-2. Bug Perhitungan Subtotal
+## 2. Bug Perhitungan Subtotal
 
-Penyebab:
+**Penyebab:**
 Terdapat kesalahan pada logika perhitungan subtotal. Seharusnya harga dikalikan dengan jumlah, tetapi menggunakan pembagian sehingga hasil perhitungan tidak sesuai.
 
-Solusi:
+**Solusi:**
 Mengganti operator pembagian (/) menjadi operator perkalian (*) pada perhitungan subtotal.
 
-Status:
+**Status:**
 Fixed
 
-3. Bug Warna Active pada Menu Navbar
+## 3. Bug Warna Active pada Menu Navbar
 
-Penyebab:
+**Penyebab:**
 Salah satu menu pada navbar belum memiliki kondisi atau class active sehingga warna active tidak muncul ketika menu tersebut sedang dibuka.
 
-Solusi:
+**Solusi:**
 Menambahkan kondisi atau class active pada menu tersebut agar warna active dapat muncul ketika menu sedang dipilih.
 
-Status:
+**Status:**
 Fixed
 
-4. Bug Pagination pada Halaman Produk Index
+## 4. Bug Pagination pada Halaman Produk Index
 
-Penyebab:
+**Penyebab:**
 Tampilan pagination pada halaman Produk Index belum sesuai dengan tampilan yang diharapkan karena masih menggunakan tampilan bawaan Laravel.
 
-Solusi:
+**Solusi:**
 Memperbaiki dan menyesuaikan tampilan pagination pada halaman Produk Index agar lebih rapi dan sesuai dengan desain aplikasi.
 
-Status:
+**Status:**
 Fixed
-
-
-kalo jadiin text tapi tabel rapi ga
