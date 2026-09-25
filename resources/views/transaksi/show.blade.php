@@ -116,7 +116,7 @@
                 <div class="d-flex justify-content-between align-items-start mb-4">
 
                     <div>
-                        <h4 class="mb-1">Struk Transaksi #{{ $transaksi->id }}</h4>
+                        <h4 class="mb-1">Struk Transaksi {{ $transaksi->id }}</h4>
 
                         <span class="text-muted">
                             {{ $transaksi->tanggal->format('d/m/Y H:i:s') }}

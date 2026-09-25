@@ -225,8 +225,8 @@
                     @forelse ($transaksis as $transaksi)
                         <tr>
 
-                            {{-- ID transaksi --}}
-                            <td>{{ $transaksi->id }}</td>
+                            {{-- Nomor urut transaksi --}}
+                            <td> {{ $transaksis->firstItem() + $loop->index }} </td>
 
                             {{-- Tanggal --}}
                             <td>{{ $transaksi->tanggal->format('d/m/Y H:i') }}</td>
