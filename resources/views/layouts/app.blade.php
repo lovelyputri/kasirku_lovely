@@ -48,7 +48,7 @@
             color: #C87590 !important;
             font-weight: bold;
         }
-
+        /* center di navbar */
         .navbar .navbar-collapse {
             justify-content: center;
         }
@@ -217,18 +217,14 @@
     {{-- ===== NAVBAR ===== --}}
     <nav class="navbar navbar-expand-lg mb-4">
         <div class="container">
-
-            {{-- Logo / nama aplikasi --}}
             <a class="navbar-brand" href="{{ route('home') }}">
                 🧾 Kasirku
             </a>
 
-            {{-- Tombol menu HP --}}
             <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            {{-- Menu navbar --}}
             <div class="collapse navbar-collapse" id="navMenu">
                 <ul class="navbar-nav">
 
@@ -260,7 +256,6 @@
     {{-- ===== ISI HALAMAN ===== --}}
     <main class="container pb-5">
 
-        {{-- Pesan berhasil --}}
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
@@ -268,7 +263,6 @@
             </div>
         @endif
 
-        {{-- Pesan error --}}
         @if (session('error'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ session('error') }}
@@ -276,16 +270,13 @@
             </div>
         @endif
 
-        {{-- Isi halaman lain --}}
         @yield('content')
 
     </main>
 
-
-    {{-- Bootstrap JavaScript --}}
+  {{-- Bootstrap JavaScript --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    {{-- Script tambahan dari halaman lain --}}
+    
     @stack('scripts')
 
 </body>

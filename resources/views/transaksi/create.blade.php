@@ -431,9 +431,9 @@
                 </div>
 
                 <p class="text-muted small mt-3 mb-0">
-                    Total ini adalah perhitungan sementara.
-                    Angka final tetap dihitung ulang oleh server
-                    saat tombol <em>Simpan Transaksi</em> ditekan.
+                    Total belanja akan dihitung otomatis berdasarkan 
+                    produk dan jumlah yang dipilih.Total 
+                    akhir dikonfirmasi saat transaksi disimpan.
                 </p>
 
             </div>

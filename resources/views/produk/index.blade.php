@@ -188,8 +188,6 @@
 
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
-
-                {{-- Kepala tabel --}}
                 <thead>
                     <tr>
                         <th>No</th>
@@ -200,23 +198,16 @@
                     </tr>
                 </thead>
 
-                {{-- Isi tabel --}}
+                {{-- tabel --}}
                 <tbody>
                     @forelse ($produks as $produk)
                         <tr>
 
-                            {{-- ID produk --}}
-                            <td>{{ $produk->id }}</td>
-
-                            {{-- Nama produk --}}
+                           <td>{{ $produk->id }}</td>
                             <td>{{ $produk->nama_produk }}</td>
-
-                            {{-- Harga --}}
                             <td class="text-end harga">
                                 Rp {{ number_format($produk->harga, 0, ',', '.') }}
                             </td>
-
-                            {{-- Stok --}}
                             <td class="text-center">
                                 <span class="badge {{ $produk->stok > 0 ? 'badge-stok-tersedia' : 'badge-stok-habis' }}">
                                     {{ $produk->stok }}
@@ -226,18 +217,11 @@
                             {{-- Aksi --}}
                             <td class="text-center">
 
-                                {{-- Tombol edit --}}
                                 <a href="{{ route('produk.edit', $produk) }}" class="btn btn-sm btn-edit">
                                     Edit
                                 </a>
 
-                                {{-- Tombol hapus --}}
-                                <form
-                                    action="{{ route('produk.destroy', $produk) }}"
-                                    method="POST"
-                                    class="d-inline"
-                                    onsubmit="return confirm('Hapus produk {{ $produk->nama_produk }}?');"
-                                >
+                                <form action="{{ route('produk.destroy', $produk) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus produk {{ $produk->nama_produk }}?');">
                                     @csrf
                                     @method('DELETE')
 
@@ -250,7 +234,6 @@
 
                         </tr>
                     @empty
-                        {{-- Kalau belum ada produk --}}
                         <tr>
                             <td colspan="5" class="text-center text-muted py-4">
                                 Belum ada produk. Tambahkan dulu.
